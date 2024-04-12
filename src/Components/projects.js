@@ -2,6 +2,7 @@ import React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { AsciiRenderer, OrbitControls } from "@react-three/drei";
 import ReactSelect from 'react-select';
+import { useEffect, useState } from 'react';
 
 function Box () {
   return (
@@ -26,22 +27,26 @@ function TorusKnot(){
 
 
 export const ProjectsPage = () => {
+  const [onOff, setOnOff] = useState(0)
+  const [state, setState] = useState(false)
+  useEffect(() => {
+    setState(onOff['value']);
+  }, [state,onOff]);
   const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: true, label: 'On' },
+    { value: false, label: 'Off' }
   ]
   return (
     <>
     <div styles="z-index: 9999">
-    <ReactSelect options={options} placeholder = {"Select an Option"}/>
+    <ReactSelect value={onOff} onChange={setOnOff} options={options}/>
     </div>
     <div style={{height:"100vh" , width:"100vw", position: "absolute"}} styles="z-index: 0">
 
       <Canvas alpha={true} camera={{position: [0, 25, 0] }} styles="z-index: 0" >
         <OrbitControls />
         <color attach="background" args={['black']} />
-        <AsciiRenderer fgColor="white" bgColor="transparent"/>
+        {state && <AsciiRenderer fgColor="white" bgColor="transparent"/>}
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 15, 10]} intensity={1}/>
         <TorusKnot />
