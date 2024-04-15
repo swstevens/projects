@@ -4,6 +4,10 @@ import { AsciiRenderer, OrbitControls, shaderMaterial } from "@react-three/drei"
 import ReactSelect from 'react-select';
 import { useEffect, useState, useMemo} from 'react';
 import * as THREE from 'three';
+import tone from '../threeTone.jpg'
+
+const texture = await new THREE.TextureLoader().loadAsync(tone)
+texture.minFilter = texture.magFilter = THREE.NearestFilter
 
 function Box () {
   return (
@@ -46,11 +50,10 @@ function TorusOutline(){
 function TorusKnot(){
   const ref = React.useRef()
   useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 2))
-
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
       <torusKnotGeometry args={[7, 3, 100, 16]}></torusKnotGeometry>
-      <meshPhongMaterial color="white" />
+      <meshToonMaterial color="white" gradientMap={texture}/>
     </instancedMesh>
   );
 };
@@ -62,7 +65,8 @@ const fragmentShader = `
 
 const vertexShader = `
   void main() {
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vec3 newPosition = position + normal * 0.02;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
   }
 `
 
