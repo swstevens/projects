@@ -14,16 +14,6 @@ function Box () {
   )
 }
 
-// const solidify = (mesh) => {
-//   const geometry = mesh.geometry
-//   const material = new THREE.shaderMaterial({
-//     vertexShader,
-//     fragmentShader,
-//   })
-
-//   const outline = new THREE.Mesh(geometry, material)
-// }
-
 function TorusOutline(){
   const ref = React.useRef()
   const data = useMemo(
@@ -46,8 +36,8 @@ function TorusOutline(){
 
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
-      <torusKnotGeometry args={[7, 3, 100, 17]}></torusKnotGeometry>
-      <meshPhongMaterial color="tomato"/>
+      <torusKnotGeometry args={[7, 3.2, 100, 16]}></torusKnotGeometry>
+      <meshPhongMaterial color="black"/>
       <shaderMaterial attach="material" {...data} />
     </instancedMesh>
   );
@@ -60,7 +50,7 @@ function TorusKnot(){
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
       <torusKnotGeometry args={[7, 3, 100, 16]}></torusKnotGeometry>
-      <meshPhongMaterial color="black" />
+      <meshPhongMaterial color="tomato" />
     </instancedMesh>
   );
 };
