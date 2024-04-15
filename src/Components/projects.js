@@ -37,7 +37,7 @@ function TorusOutline(){
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
       <torusKnotGeometry args={[7, 3.2, 100, 16]}></torusKnotGeometry>
-      <meshPhongMaterial color="black"/>
+      {/* <meshPhongMaterial color="black"/> */}
       <shaderMaterial attach="material" {...data} />
     </instancedMesh>
   );
@@ -50,14 +50,14 @@ function TorusKnot(){
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
       <torusKnotGeometry args={[7, 3, 100, 16]}></torusKnotGeometry>
-      <meshPhongMaterial color="tomato" />
+      <meshPhongMaterial color="white" />
     </instancedMesh>
   );
 };
 
 const fragmentShader = `
   void main() {
-    gl_FragColor = vec4(1,0,0,1);
+    gl_FragColor = vec4(1,1,1,0);
 }`
 
 const vertexShader = `
