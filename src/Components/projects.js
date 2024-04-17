@@ -83,6 +83,12 @@ const vertexShader = `
 export const ProjectsPage = () => {
   const [onOff, setOnOff] = useState(0)
   const [state, setState] = useState(false)
+  const [toonOn, setToonOn] = useState(false)
+
+  const toonChange = () => {
+    setToonOn(!toonOn)
+  }
+
   useEffect(() => {
     setState(onOff['value']);
   }, [state,onOff]);
@@ -93,6 +99,14 @@ export const ProjectsPage = () => {
   return (
     <>
     <div styles="z-index: 9999">
+    <label>
+      <input 
+        type = "checkbox"
+        checked={toonOn}
+        onChange={toonChange} 
+      />
+      Toon
+    </label>
     <ReactSelect value={onOff} onChange={setOnOff} options={options}/>
     </div>
     <div style={{height:"100vh" , width:"100vw", position: "absolute"}} styles="z-index: 0">
