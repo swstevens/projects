@@ -41,8 +41,18 @@ function TorusOutline(){
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
       <torusKnotGeometry args={[7, 3.2, 100, 16]}></torusKnotGeometry>
-      {/* <meshPhongMaterial color="black"/> */}
       <shaderMaterial attach="material" {...data} />
+    </instancedMesh>
+  );
+};
+
+function TorusKnotToon(){
+  const ref = React.useRef()
+  useFrame((state, delta) => (ref.current.rotation.x = ref.current.rotation.y += delta / 2))
+  return (
+    <instancedMesh args={[null, null, 10]} ref={ref}>
+      <torusKnotGeometry args={[7, 3, 100, 16]}></torusKnotGeometry>
+      <meshToonMaterial color="white" gradientMap={texture}/>
     </instancedMesh>
   );
 };
@@ -53,10 +63,10 @@ function TorusKnot(){
   return (
     <instancedMesh args={[null, null, 10]} ref={ref}>
       <torusKnotGeometry args={[7, 3, 100, 16]}></torusKnotGeometry>
-      <meshToonMaterial color="white" gradientMap={texture}/>
+      <meshPhongMaterial color="tomato" />
     </instancedMesh>
   );
-};
+}
 
 const fragmentShader = `
   void main() {
@@ -93,7 +103,7 @@ export const ProjectsPage = () => {
         {state && <AsciiRenderer fgColor="white" bgColor="transparent"/>}
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 15, 10]} intensity={1}/>
-        <TorusKnot />
+        <TorusKnotToon />
         <TorusOutline/>
       </Canvas>
     </div>
