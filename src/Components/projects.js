@@ -84,9 +84,13 @@ export const ProjectsPage = () => {
   const [onOff, setOnOff] = useState(0)
   const [state, setState] = useState(false)
   const [toonOn, setToonOn] = useState(false)
+  const [asciiOn, setAsciiOn] = useState(false)
 
   const toonChange = () => {
     setToonOn(!toonOn)
+  }
+  const AsciiChange = () => {
+    setAsciiOn(!asciiOn)
   }
 
   useEffect(() => {
@@ -104,6 +108,14 @@ export const ProjectsPage = () => {
         type = "checkbox"
         checked={toonOn}
         onChange={toonChange} 
+      />
+      Toon
+    </label>
+    <label>
+      <input 
+        type = "checkbox"
+        checked={asciiOn}
+        onChange={setAsciiOn} 
       />
       Toon
     </label>
