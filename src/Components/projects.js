@@ -1,8 +1,7 @@
 import React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { AsciiRenderer, OrbitControls, shaderMaterial } from "@react-three/drei";
-import ReactSelect from 'react-select';
-import { useEffect, useState, useMemo} from 'react';
+import { useState, useMemo} from 'react';
 import * as THREE from 'three';
 import tone from '../threeTone.jpg'
 
@@ -81,8 +80,6 @@ const vertexShader = `
 `
 
 export const ProjectsPage = () => {
-  const [onOff, setOnOff] = useState(0)
-  const [state, setState] = useState(false)
   const [toonOn, setToonOn] = useState(false)
   const [asciiOn, setAsciiOn] = useState(false)
 
@@ -93,13 +90,6 @@ export const ProjectsPage = () => {
     setAsciiOn(!asciiOn)
   }
 
-  useEffect(() => {
-    setState(onOff['value']);
-  }, [state,onOff]);
-  const options = [
-    { value: true, label: 'On' },
-    { value: false, label: 'Off' }
-  ]
   return (
     <>
     <div styles="z-index: 9999">
@@ -115,22 +105,22 @@ export const ProjectsPage = () => {
       <input 
         type = "checkbox"
         checked={asciiOn}
-        onChange={setAsciiOn} 
+        onChange={AsciiChange} 
       />
-      Toon
+      Ascii
     </label>
-    <ReactSelect value={onOff} onChange={setOnOff} options={options}/>
     </div>
     <div style={{height:"100vh" , width:"100vw", position: "absolute"}} styles="z-index: 0">
 
       <Canvas alpha={true} camera={{position: [0, 25, 0] }} styles="z-index: 0" >
         <OrbitControls />
         <color attach="background" args={['black']} />
-        {state && <AsciiRenderer fgColor="white" bgColor="transparent"/>}
+        {asciiOn && <AsciiRenderer fgColor="white" bgColor="transparent"/>}
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 15, 10]} intensity={1}/>
-        <TorusKnotToon />
-        <TorusOutline/>
+        {toonOn && <TorusKnotToon />}
+        {toonOn && <TorusOutline/>}
+        {!toonOn && <TorusKnot/>}
       </Canvas>
     </div>
     </>
