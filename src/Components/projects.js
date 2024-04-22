@@ -1,6 +1,6 @@
 import React from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { AsciiRenderer, OrbitControls, shaderMaterial } from "@react-three/drei";
+import { AsciiRenderer, OrbitControls } from "@react-three/drei";
 import { useState, useMemo} from 'react';
 import * as THREE from 'three';
 import tone from '../threeTone.jpg'
